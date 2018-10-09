@@ -3,7 +3,7 @@ $(document).ready(function(){
   fill_object('#top_content', create_top_content());
   fill_object('#main_content', create_main_content());
   fill_object('#left_content', create_left_content());
-  fill_object('#center_content', create_center_content());
+  fill_object('#center_content', create_desired_content());
 
   function fill_object(which, filling){
     $(which).html(filling);
@@ -73,7 +73,7 @@ $(document).ready(function(){
     var q=2;
     while (i<q){
       element += '<tr class="right_content_tr">';
-      element += '<td><div class="ninja link">Ninja '+(i+1)+'</div></td>';
+      element += '<td><div class="ninja link"><i class="circle icon"></i> Ninja '+(i+1)+'</div></td>';
       element += '</tr>';
       i++;
     }
@@ -84,7 +84,7 @@ $(document).ready(function(){
     q=7;
     while (i<q){
       element += '<tr class="right_content_tr">';
-      element += '<td><div class="ninja link">Ninja '+(i+1)+'</div></td>';
+      element += '<td><div class="ninja link"><i class="circle icon"></i> Ninja '+(i+1)+'</div></td>';
       element += '</tr>';
       i++;
     }
@@ -93,7 +93,7 @@ $(document).ready(function(){
     return element;
   }
 
-  function create_center_content(){
+  function create_desired_content(){
     var data = [{
                   "header": "Java scanner not waiting for user input",
                   "tags": ["java", "java.util.scanner"],
@@ -198,6 +198,17 @@ $(document).ready(function(){
       return element;
   }
 
+  function create_explore_content(){
+    var element = '<table id="center_content_table" class="full_width">';
+    element += '<tr><td>';
+    element += '<div style="font-size:18px; color:rgba(255,255,255,0.5)">Check it later</div>';
+    element += '</td></tr>';
+    element += '</table>';
+
+    return element;
+  }
+
+
   function auto_height(el){
     el.style.height = '1px';
     el.style.height = (el.scrollHeight)+"px";
@@ -207,7 +218,16 @@ $(document).ready(function(){
     $('.navigation.link').attr('class', 'navigation link');
     $(this).attr('class', 'navigation link chosen');
 
-    
+    var id = $(this).attr('id');
+    var element;
+    if (id=='desired'){
+      element = create_desired_content();
+    }
+    if (id=='explore' || id=='responses'){
+      element = create_explore_content();
+    }
+    fill_object('#center_content', element);
+    fill_object('#right_content', '');
   });
 
 
@@ -221,7 +241,7 @@ $(document).ready(function(){
     element += '<td><div id="input_message">';
     element += '<textarea class="input_field" placeholder="Message">';
     element += '</textarea></div></td></tr>';
-    element += '</tbody>'
+    element += '</tbody>';
     $('#center_content_table').html(element);
     fill_object('#right_content', create_right_content());
   });
