@@ -1,0 +1,190 @@
+body{
+  background-color:rgb(47, 49, 54);
+  font-family:Arial;
+  font-size:14px;
+}
+
+.content_side_td{
+  width:20%;
+  padding:0px 20px;
+  vertical-align: top;
+}
+
+#center_content{
+  background-color: rgb(54, 57, 63);
+  border-radius: 1%;
+  padding:10px;
+}
+
+.door{
+  margin:0px 5px;
+  border:2px solid rgba(255, 255, 255, 0.5);
+}
+
+.door_handle{
+  background-color: white;
+  border-radius:100%;
+  width:2px;
+  height:2px;
+  margin-left:3px;
+  margin-top:17px;
+}
+
+.full_width{
+  width:100%;
+}
+
+.group_title{
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  padding-top: 15px;
+}
+
+.hashtag{
+  font-size: 16px;
+  padding: 0px 9px 0px 3px;
+}
+
+#logo td{
+  vertical-align: bottom;
+}
+
+.link{
+  color:rgba(255,255,255,0.8);
+  padding:10px;
+  cursor:pointer;
+}
+
+.link:hover{
+  color:rgba(255,255,255,1);
+  background-color: rgb(54, 57, 63);
+}
+
+.link.chosen{
+  color:rgba(255,255,255,1);
+  background-color: rgb(54, 57, 63);
+}
+
+#portal_name{
+  color:white;
+  font-weight:bold;
+  font-size:25px;
+  margin-bottom:-6px;
+}
+
+#portal_logo{
+  border:2px solid white;
+  margin-left:8px;
+}
+
+#portal_logo, .door{
+  height:36px;
+  width:20px;
+  background-color:rgb(84, 200, 255);
+}
+
+
+.room_overview{
+  float:right;
+}
+
+.room_overview td{
+  text-align: center;
+  color: rgba(255,255,255,0.7);
+  padding:0px 7px;
+}
+
+.room_name{
+  color:rgba(255,255,255,0.8);
+  cursor:pointer;
+  font-size:16px;
+}
+
+.room_name:hover{
+  color:rgba(255,255,255,1);
+}
+
+.room_td{
+  padding:15px 0px;
+  vertical-align: top;
+}
+
+.room_tr:hover{
+  background-color:rgb(61, 64, 70);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.tags{
+  display:inline-block;
+  color:rgba(84, 200, 255, 0.8);
+  padding:0px 5px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.tags:hover{
+  color:rgba(84, 200, 255, 1);
+}
+
+#top_content{
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgb(32, 34, 37);
+}
+
+#top_search{
+  height:16px;
+  font-size:14px;
+  color:white;
+  background-color:rgb(54, 57, 63);
+}
+
+#total_online, #total_views{
+  font-size:18px;
+  padding:10px 0px 0px 8px;
+}
+
+#total_online{
+  color:green;
+}
+
+#total_views{
+  color:white;
+  padding-bottom:15px;
+}
+
+#ifr{
+  width:100%;
+  height:500px;
+  border:none;
+}
+
+
+.input_field{
+  width:100%;
+  background-color:rgb(47, 49, 54);
+  border:none;
+  padding:15px 15px 0px 15px;
+  color:white;
+  resize:none;
+  overflow:hidden;
+}
+
+#input_message{
+  margin-top:350px;
+}
+
+#input_message>.input_field{
+  font-size:16px;
+}
+
+#input_title, #input_message{
+  width:100%;
+  display:inline-flex;
+}
+
+#input_title>.input_field{
+  font-size:18px;
+}
