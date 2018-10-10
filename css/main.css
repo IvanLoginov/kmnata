@@ -2,6 +2,7 @@ body{
   background-color:rgb(47, 49, 54);
   font-family:Arial;
   font-size:14px;
+  margin:0px;
 }
 
 .content_side_td{
@@ -14,6 +15,15 @@ body{
   background-color: rgb(54, 57, 63);
   border-radius: 1%;
   padding:10px;
+  height:85vh;
+  overflow:scroll;
+}
+
+#create_one{
+  float: right;
+  margin-right: 22px;
+  padding: 9px 15px;
+
 }
 
 .door{
@@ -130,8 +140,8 @@ table {
 }
 
 #top_content{
-  padding-bottom: 10px;
-  border-bottom: 2px solid rgb(32, 34, 37);
+  padding: 5px;
+  border-bottom: 1px solid rgb(32, 34, 37);
 }
 
 #top_search{
@@ -139,6 +149,7 @@ table {
   font-size:14px;
   color:white;
   background-color:rgb(54, 57, 63);
+  width:50%;
 }
 
 #total_online, #total_views{
@@ -164,20 +175,22 @@ table {
 
 .input_field{
   width:100%;
-  background-color:rgb(47, 49, 54);
+  background-color:rgba(114,118,125,.3);
   border:none;
-  padding:10px 10px 0px 10px;
+  padding:15px 15px 5px 15px;
   color:white;
   resize:none;
   overflow:hidden;
+  border-radius:3px;
+  font-size:16px;
 }
 
 #input_message{
-  margin-top:350px;
+  margin-top:70vh;
 }
 
 #input_message>.input_field{
-  font-size:16px;
+
 }
 
 #input_title, #input_message{
@@ -185,6 +198,11 @@ table {
   display:inline-flex;
 }
 
-#input_title>.input_field{
-  font-size:18px;
+#room_title{
+  height:40px;
+}
+
+#room_title>.input_field{
+  padding:10px;
+  margin-left:-4px;
 }

@@ -20,13 +20,18 @@ $(document).ready(function(){
     element += '</td></table>';
     element += '</td>';
     element += '<td>';
-    element += '</div>';
-    element += '<div class="ui inverted right icon input" style="margin-top:10px; width:50%">';
+    element += '<table style="margin-top:5px" class="full_width"><td id="room_title">';
+    element += '</td>';
+    element += '<td style="width:140px">';
+    element += '<button id="create_one"';
+    element += ' class="ui inverted blue button">Create one</button>';
+    element += '</td></table>';
+    element += '</td>';
+    element += '<td class="content_side_td" style="padding-left:0px">';
+    element += '<div class="ui inverted right icon input" style="margin-top:10px;">';
     element += '<input id="top_search" type="text" placeholder="Search...">';
     element += '<i class="search icon"></i>';
     element += '</div>';
-    element += '</td>';
-    element += '<td class="content_side_td">';
     element += '</td>';
     element += '</table>';
     return element;
@@ -154,10 +159,6 @@ $(document).ready(function(){
       var i=0;
       var j, tags;
       var element = '<table id="center_content_table" class="full_width">';
-      element += '<tr><td colspan="3" class="room_td">';
-      element += '<button id="create_one" style="float:right;margin-right:10px"';
-      element += ' class="ui inverted blue button">Create one</button>';
-      element += '</td></tr>';
       while (i<data.length){
         element += '<tr class="room_tr">';
         element += '<td class="room_td">';
@@ -234,11 +235,10 @@ $(document).ready(function(){
   $(document).on('click', '#create_one', function(e){
     $('.navigation.link').attr('class', 'navigation link');
     $(this).html('Create');
-    var element = '<tbody><tr>' + $(this).parents('tr').html() + '</tr>';
-    element += '<tr><td><div id="input_title">';
-    element += '<textarea class="input_field" placeholder="What about?">';
-    element += '</textarea><div></div></div></td></tr>';
-    element += '<td><div id="input_message">';
+    var element = '<input class="input_field" placeholder="What about?">';
+    element += '</input>';
+    $('#room_title').html(element);
+    element = '<tbody><tr><td><div id="input_message">';
     element += '<textarea class="input_field" placeholder="Message">';
     element += '</textarea></div></td></tr>';
     element += '</tbody>';
@@ -246,7 +246,7 @@ $(document).ready(function(){
     fill_object('#right_content', create_right_content());
   });
 
-  $(document).on('keyup', '.input_field', function(e){
+  $(document).on('keyup', '#input_message>.input_field', function(e){
     auto_height(this);
   })
 
