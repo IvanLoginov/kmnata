@@ -23,7 +23,15 @@ body{
   height:75vh;
 }
 
-#create_one{
+.chat td{
+  vertical-align: top;
+}
+
+.chat img{
+  max-width:50%;
+}
+
+#create{
   float: right;
   margin-right: 22px;
   padding: 9px 15px;
@@ -181,7 +189,7 @@ table {
   width:100%;
   background-color:rgba(114,118,125,.3);
   border:none;
-  padding:15px 15px 5px 15px;
+  padding:15px 15px 0px 15px;
   color:white;
   resize:none;
   border-radius:3px;
@@ -193,6 +201,11 @@ table {
   margin-top:5px;
 }
 
+#input_message>.input_field{
+  margin-left: 40px;
+  line-height: 100%
+}
+
 #input_title, #input_message{
   width:100%;
   display:inline-flex;
@@ -202,7 +215,41 @@ table {
   height:40px;
 }
 
+#room_title>div{
+  color:white;
+  font-size:16px;
+}
+
 #room_title>.input_field{
   padding:10px;
   margin-left:-4px;
+}
+
+.user_name{
+  color:white;
+  padding-top:5px;
+}
+
+.user_message{
+  padding:10px 10px 10px 0px;
+  color:rgba(255,255,255,0.7)
+}
+
+.user_icon{
+  font-size:36px;
+}
+
+#upload_media{
+  font-size:30px;
+  color:rgba(255,255,255,0.7);
+  cursor:pointer;
+  position:absolute;
+  bottom:29px;
+  background-color:rgba(114,118,125,.3);
+  padding: 6.5px 0px;
+  border-radius: 3px;
+}
+
+#upload_media:hover{
+    color:rgba(255,255,255,1);
 }

@@ -23,8 +23,8 @@ $(document).ready(function(){
     element += '<table style="margin-top:5px" class="full_width"><td id="room_title">';
     element += '</td>';
     element += '<td style="width:140px">';
-    element += '<button id="create_one"';
-    element += ' class="ui inverted blue button">Create one</button>';
+    element += '<button id="create"';
+    element += ' class="ui inverted blue button">Create</button>';
     element += '</td></table>';
     element += '</td>';
     element += '<td class="content_side_td" style="padding-left:0px">';
@@ -40,7 +40,7 @@ $(document).ready(function(){
   function create_main_content(){
     var element = '<table id="main_table" class="full_width">';
     element += '<td class="content_side_td" style="padding-right:0px"><div id="left_content"></div></td>';
-    element += '<td style="vertical-align:top"><div id="center_content"></div><div id="input_message" class="hidden"></div></td>';
+    element += '<td style="vertical-align:top"><div id="center_content"></div><div id="input_message"></div></td>';
     element += '<td class="content_side_td" style="padding:0px 0px 0px 5px"><div id="right_content"></div></td>';
     element += '</table>';
 
@@ -221,7 +221,70 @@ $(document).ready(function(){
     }
   }
 
+  function get_chat(){
+    var messages = [{'user':'Anti-Dead Cat', 'message':'<img src="../img/smelly_pussy.png"></img>'}
+                    ,{'user':'Happy', 'message':'that refers to u my dude'}
+                    ,{'user':'Anti-Dead Cat', 'message':'<img src="../img/build_shelf.png"></img>'}
+                    ,{'user':'Fix a Fix', 'message':'Why 3/4 of your memes are memes that existed 10 years ago and the other quarter are good memes? How do you even find this collection thats good only in a small part? Just a question im curious and a bit surprised to find so many 2008 memes'}
+                    ,{'user':'Intellegion', 'message':'hmm nice memes'}
+                    ,{'user':'mefsh', 'message':'Not really a meme, but still funny.<br><br><img src="../img/kfc_dog.jpg"></img>'}
+                  ]
+    var element = '';
+    var color;
+    var i=0;
+    while (i<messages.length){
+      color = 'color:rgba('+Math.round(Math.random()*255,0);
+      color += ','+Math.round(Math.random()*255,0)+','+Math.round(Math.random()*255,0)+', 0.8)';
+      element += '<tr><td class="user_icon" style="'+color+'">';
+      element += '<i class="bug icon"></i>';
+      element += '</td>';
+      element += '<td>';
+      element += '<table>';
+      element += '<tr><td class="user_name">';
+      element += messages[i].user;
+      element += '</td></tr>';
+      element += '<tr><td class="user_message">';
+      element += messages[i].message;
+      element += '</td></tr></table>';
+      element += '</td>';
+      element += '</tr>';
+      i++;
+    }
+
+    return element;
+  }
+
+  function goto_room(create, room_name){
+    create = (create || 0);
+    room_name = (room_name || 'Wassssssuuup!!!');
+    $('.navigation.link').attr('class', 'navigation link');
+    var element;
+    if (create){
+      element = '<input class="input_field" placeholder="What about?">';
+      element += '</input>';
+    } else {
+      element = '<div>';
+      element += room_name;
+      element += '</div>';
+    }
+    $('#room_title').html(element);
+    element = '<table id="center_content_table" class="full_width">';
+    if (!create){
+      element += get_chat();
+    }
+    element += '</table>';
+    $('#center_content').html(element).attr('class','chat');
+    element = '<div id="upload_media"><i class="paperclip icon"></i></div>';
+    element += '<textarea class="input_field" placeholder="Message">';
+    element += '</textarea>';
+    $('#input_message').html(element);
+    fill_object('#right_content', create_right_content());
+  }
+
   $(document).on('click', '.navigation.link', function(e){
+    $('#room_title').html('');
+    $('#input_message').html('');
+    $('#center_content').attr('class','');
     $('.navigation.link').attr('class', 'navigation link');
     $(this).attr('class', 'navigation link chosen');
 
@@ -237,20 +300,12 @@ $(document).ready(function(){
     fill_object('#right_content', '');
   });
 
+  $(document).on('click', '.room_name', function(e){
+      goto_room(0, $(this).html());
+  });
 
-  $(document).on('click', '#create_one', function(e){
-    $('.navigation.link').attr('class', 'navigation link');
-    $(this).html('Create');
-    var element = '<input class="input_field" placeholder="What about?">';
-    element += '</input>';
-    $('#room_title').html(element);
-    element = '<table id="center_content_table">';
-    element += '</table>';
-    $('#center_content').html(element).attr('class','chat');
-    element = '<textarea class="input_field" placeholder="Message">';
-    element += '</textarea>'
-    $('#input_message').html(element);
-    fill_object('#right_content', create_right_content());
+  $(document).on('click', '#create', function(e){
+    goto_room(1);
   });
 
   $(document).on('keyup', '#input_message>.input_field', function(e){
