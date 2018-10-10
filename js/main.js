@@ -40,7 +40,7 @@ $(document).ready(function(){
   function create_main_content(){
     var element = '<table id="main_table" class="full_width">';
     element += '<td class="content_side_td" style="padding-right:0px"><div id="left_content"></div></td>';
-    element += '<td style="vertical-align:top"><div id="center_content"></div></td>';
+    element += '<td style="vertical-align:top"><div id="center_content"></div><div id="input_message" class="hidden"></div></td>';
     element += '<td class="content_side_td" style="padding:0px 0px 0px 5px"><div id="right_content"></div></td>';
     element += '</table>';
 
@@ -211,8 +211,14 @@ $(document).ready(function(){
 
 
   function auto_height(el){
+    var delta = $(el).outerHeight();
     el.style.height = '1px';
     el.style.height = (el.scrollHeight)+"px";
+    delta = $(el).outerHeight() - delta;
+    if (delta){
+      delta = $('#center_content').css('height').replace('px','') - delta;
+      $('#center_content').css('height', delta);
+    }
   }
 
   $(document).on('click', '.navigation.link', function(e){
@@ -238,11 +244,12 @@ $(document).ready(function(){
     var element = '<input class="input_field" placeholder="What about?">';
     element += '</input>';
     $('#room_title').html(element);
-    element = '<tbody><tr><td><div id="input_message">';
-    element += '<textarea class="input_field" placeholder="Message">';
-    element += '</textarea></div></td></tr>';
-    element += '</tbody>';
-    $('#center_content_table').html(element);
+    element = '<table id="center_content_table">';
+    element += '</table>';
+    $('#center_content').html(element).attr('class','chat');
+    element = '<textarea class="input_field" placeholder="Message">';
+    element += '</textarea>'
+    $('#input_message').html(element);
     fill_object('#right_content', create_right_content());
   });
 

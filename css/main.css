@@ -19,6 +19,10 @@ body{
   overflow:scroll;
 }
 
+#center_content.chat{
+  height:75vh;
+}
+
 #create_one{
   float: right;
   margin-right: 22px;
@@ -180,17 +184,13 @@ table {
   padding:15px 15px 5px 15px;
   color:white;
   resize:none;
-  overflow:hidden;
   border-radius:3px;
   font-size:16px;
+  max-height:300px;
 }
 
 #input_message{
-  margin-top:70vh;
-}
-
-#input_message>.input_field{
-
+  margin-top:5px;
 }
 
 #input_title, #input_message{
