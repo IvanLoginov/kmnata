@@ -11,6 +11,18 @@ body{
   vertical-align: top;
 }
 
+.control_button{
+  font-size:30px;
+  color:rgba(255,255,255,0.7);
+  cursor:pointer;
+  border-radius: 3px;
+  background-color:rgba(114,118,125,.3);
+}
+
+.control_button:hover{
+  color:rgba(255,255,255,1);
+}
+
 #center_content{
   background-color: rgb(54, 57, 63);
   border-radius: 1%;
@@ -36,6 +48,31 @@ body{
   margin-right: 22px;
   padding: 9px 15px;
 
+}
+
+#distinct_messages{
+  position: inherit;
+  right: 20%;
+  margin-left:2px;
+  padding-left:3px;
+}
+
+#distinct_messages.active{
+  border: 2px solid rgb(109, 255, 255);
+}
+
+.distinct_messages{
+    border-top: 1px solid rgba(255, 255, 255,0.3);
+    border-bottom: 1px solid rgba(255, 255, 255,0.3);
+    height:200px;
+    width:240px;
+    overflow:scroll;
+    padding:5px;
+}
+
+.distinct_user_name{
+  color:white;
+  padding-bottom:10px;
 }
 
 .door{
@@ -87,6 +124,17 @@ body{
   background-color: rgb(54, 57, 63);
 }
 
+.message_tile{
+  display:inline-block;
+  margin:30px 15px;
+  cursor:pointer;
+}
+
+.message_tile:hover .distinct_messages{
+    border-top: 1px solid rgb(84, 200, 255);
+    border-bottom: 1px solid rgb(84, 200, 255);
+}
+
 #portal_name{
   color:white;
   font-weight:bold;
@@ -104,7 +152,6 @@ body{
   width:20px;
   background-color:rgb(84, 200, 255);
 }
-
 
 .room_overview{
   float:right;
@@ -202,7 +249,7 @@ table {
 }
 
 #input_message>.input_field{
-  margin-left: 40px;
+  margin-left: 41px;
   line-height: 100%
 }
 
@@ -231,7 +278,7 @@ table {
 }
 
 .user_message{
-  padding:5px 10px 15px 0px;
+  padding:5px 50px 15px 0px;
   color:rgba(255,255,255,0.7)
 }
 
@@ -240,15 +287,6 @@ table {
 }
 
 #upload_media{
-  font-size:30px;
-  color:rgba(255,255,255,0.7);
-  cursor:pointer;
-  position:absolute;
-  background-color:rgba(114,118,125,.3);
   padding: 6.5px 0px;
-  border-radius: 3px;
-}
-
-#upload_media:hover{
-    color:rgba(255,255,255,1);
+  position:absolute;
 }

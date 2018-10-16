@@ -220,15 +220,14 @@ $(document).ready(function(){
       $('#center_content').css('height', delta);
     }
   }
-
+  var messages = [{'user':'Anti-Dead Cat', 'message':'<img src="../img/smelly_pussy.png"></img>'}
+                  ,{'user':'Happy', 'message':'that refers to u my dude'}
+                  ,{'user':'Anti-Dead Cat', 'message':'<img src="../img/build_shelf.png"></img>'}
+                  ,{'user':'Fix a Fix', 'message':'Why 3/4 of your memes are memes that existed 10 years ago and the other quarter are good memes? How do you even find this collection thats good only in a small part? Just a question im curious and a bit surprised to find so many 2008 memes'}
+                  ,{'user':'Intellegion', 'message':'hmm nice memes'}
+                  ,{'user':'mefsh', 'message':'Not really a meme, but still funny.<br><br><img src="../img/kfc_dog.jpg"></img>'}
+                ]
   function get_chat(){
-    var messages = [{'user':'Anti-Dead Cat', 'message':'<img src="../img/smelly_pussy.png"></img>'}
-                    ,{'user':'Happy', 'message':'that refers to u my dude'}
-                    ,{'user':'Anti-Dead Cat', 'message':'<img src="../img/build_shelf.png"></img>'}
-                    ,{'user':'Fix a Fix', 'message':'Why 3/4 of your memes are memes that existed 10 years ago and the other quarter are good memes? How do you even find this collection thats good only in a small part? Just a question im curious and a bit surprised to find so many 2008 memes'}
-                    ,{'user':'Intellegion', 'message':'hmm nice memes'}
-                    ,{'user':'mefsh', 'message':'Not really a meme, but still funny.<br><br><img src="../img/kfc_dog.jpg"></img>'}
-                  ]
     var element = '';
     var color;
     var i=0;
@@ -274,11 +273,62 @@ $(document).ready(function(){
     }
     element += '</table>';
     $('#center_content').html(element).attr('class','chat');
-    element = '<div id="upload_media"><i class="paperclip icon"></i></div>';
+
+    element = '<div id="upload_media" class="control_button"><i class="paperclip icon"></i></div>';
     element += '<textarea class="input_field" placeholder="Message">';
     element += '</textarea>';
+    element += '<div id="distinct_messages" class="control_button"><i style="margin-top:7px" class="magic icon"></i></div>'
     $('#input_message').html(element);
     fill_object('#right_content', create_right_content());
+  }
+
+  function create_tiles(){
+    var i=0;
+    var j=0;
+    var element = '<div class="message_tile">';
+    element += '<div class="distinct_user_name">Full chat</div>';
+    element += '<div class="distinct_messages">';
+    element += '<table class="full_width">'+$('#center_content_table').html()+'</table>';
+    element += '</div></div>';
+    var uniq_users = get_values(messages, 'user');
+    uniq_users = uniq_users.filter(get_unique);
+    var color;
+    while (i<uniq_users.length){
+      color = 'color:rgba('+Math.round(Math.random()*255,0);
+      color += ','+Math.round(Math.random()*255,0)+','+Math.round(Math.random()*255,0)+', 0.8)';
+      element += '<div class="message_tile">';
+      element += '<div class="distinct_user_name"><i class="bug icon" style="'+color+'">';
+      element += '</i> '+uniq_users[i]+'</div>';
+      element += '<div class="distinct_messages"><table class="full_width">';
+      j=0;
+      while (j<messages.length){
+        if (messages[j].user==uniq_users[i]){
+          element += '<tr><td>';
+          element += '<div class="user_message">'+messages[j].message+'</div>';
+          element += '</td></tr>';
+        }
+        j++;
+      }
+      element += '</table></div></div>';
+      i++;
+    }
+
+    return element;
+  }
+
+  function get_unique(value, index, self){
+    return self.indexOf(value)===index;
+  }
+
+  function get_values(object, key){
+    var array = [];
+    var i=0;
+    while (i<object.length){
+      array[i] = object[i][key];
+      i++;
+    }
+
+    return array;
   }
 
   $(document).on('click', '.navigation.link', function(e){
@@ -300,8 +350,17 @@ $(document).ready(function(){
     fill_object('#right_content', '');
   });
 
+  $(document).on('click', '#distinct_messages', function(e){
+    if ($(this).attr('class').indexOf('active')>-1){
+      goto_room(0, $('#room_title').html());
+    } else {
+      fill_object('#center_content', create_tiles());
+    }
+    $(this).toggleClass('active');
+  })
+
   $(document).on('click', '.room_name', function(e){
-      goto_room(0, $(this).html());
+    goto_room(0, $(this).html());
   });
 
   $(document).on('click', '#create', function(e){
