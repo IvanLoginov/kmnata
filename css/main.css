@@ -65,9 +65,10 @@ body{
     border-top: 1px solid rgba(255, 255, 255,0.3);
     border-bottom: 1px solid rgba(255, 255, 255,0.3);
     height:200px;
-    width:240px;
+    width:100%;
     overflow:scroll;
     padding:5px;
+    display:inline-block;
 }
 
 .distinct_user_name{
@@ -126,8 +127,9 @@ body{
 
 .message_tile{
   display:inline-block;
-  margin:30px 15px;
+  margin:30px 25px;
   cursor:pointer;
+  width:40%;
 }
 
 .message_tile:hover .distinct_messages{
