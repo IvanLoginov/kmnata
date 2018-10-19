@@ -237,7 +237,7 @@ $(document).ready(function(){
     return 'rgba('+get_random_color()+','+get_random_color()+','+get_random_color()+', 0.8)';
   }
 
-  function get_chat(){
+  function create_chat(){
     var element = '';
     var color;
     var i=0;
@@ -278,7 +278,7 @@ $(document).ready(function(){
     $('#room_title').html(element);
     element = '<table id="center_content_table" class="full_width">';
     if (!create){
-      element += get_chat();
+      element += create_chat();
     }
     element += '</table>';
     $('#center_content').html(element).attr('class','chat');
