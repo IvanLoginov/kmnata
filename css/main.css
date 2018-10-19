@@ -17,9 +17,14 @@ body{
   cursor:pointer;
   border-radius: 3px;
   background-color:rgba(114,118,125,.3);
+  display: inline-block;
 }
 
 .control_button:hover{
+  color:rgba(255,255,255,1);
+}
+
+.control_button.chosen{
   color:rgba(255,255,255,1);
 }
 
@@ -43,6 +48,13 @@ body{
   max-width:50%;
 }
 
+#chat, #video, #tag{
+  margin-right:10px;
+  padding: 5px 15px;
+  font-size: 16px;
+}
+
+
 #create{
   float: right;
   margin-right: 22px;
@@ -52,9 +64,10 @@ body{
 
 #distinct_messages{
   position: inherit;
-  right: 20%;
-  margin-left:2px;
+  margin-left:73px;
   padding-left:3px;
+  height:43px;
+  border: 2px solid transparent;
 }
 
 #distinct_messages.active{
@@ -134,7 +147,7 @@ body{
 }
 
 .message_tile:hover .distinct_messages{
-    border: 1px solid rgb(84, 200, 255);
+    box-shadow: inset 0 0 1000px rgba(0, 0, 0, 0.2);
 }
 
 #portal_name{
@@ -246,16 +259,20 @@ table {
   max-height:300px;
 }
 
-#input_message{
+#bottom_control{
   margin-top:5px;
 }
 
-#input_message>.input_field{
+#bottom_control_main{
+  width:100%;
+}
+
+#bottom_control_main>.input_field{
   margin-left: 41px;
   line-height: 100%
 }
 
-#input_title, #input_message{
+#input_title, #bottom_control{
   width:100%;
   display:inline-flex;
 }

@@ -40,7 +40,7 @@ $(document).ready(function(){
   function create_main_content(){
     var element = '<table id="main_table" class="full_width">';
     element += '<td class="content_side_td" style="padding-right:0px"><div id="left_content"></div></td>';
-    element += '<td style="vertical-align:top"><div id="center_content"></div><div id="input_message"></div></td>';
+    element += '<td style="vertical-align:top"><div id="center_content"></div><div id="bottom_control"></div></td>';
     element += '<td class="content_side_td" style="padding:0px 0px 0px 5px"><div id="right_content"></div></td>';
     element += '</table>';
 
@@ -262,7 +262,7 @@ $(document).ready(function(){
       element = '<input class="input_field" placeholder="What about?">';
       element += '</input>';
     } else {
-      element = '<div>';
+      element = '<div id="room_title_div">';
       element += room_name;
       element += '</div>';
     }
@@ -274,11 +274,13 @@ $(document).ready(function(){
     element += '</table>';
     $('#center_content').html(element).attr('class','chat');
 
-    element = '<div id="upload_media" class="control_button"><i class="paperclip icon"></i></div>';
+    element = '<div id="bottom_control_main"><div id="upload_media" class="control_button">';
+    element += '<i class="paperclip icon"></i></div>';
     element += '<textarea class="input_field" placeholder="Message">';
-    element += '</textarea>';
-    element += '<div id="distinct_messages" class="control_button"><i style="margin-top:7px" class="magic icon"></i></div>'
-    $('#input_message').html(element);
+    element += '</textarea></div>';
+    element += '<div id="distinct_messages" class="control_button">';
+    element += '<i style="margin-top:7px" class="magic icon"></i></div>';
+    $('#bottom_control').html(element);
     fill_object('#right_content', create_right_content());
   }
 
@@ -286,7 +288,7 @@ $(document).ready(function(){
     var i=0;
     var j=0;
     var element = '<div class="message_tile">';
-    element += '<div class="distinct_user_name">Full chat</div>';
+    element += '<div class="distinct_user_name">Main chat</div>';
     element += '<div class="distinct_messages">';
     element += '<table class="full_width">'+$('#center_content_table').html()+'</table>';
     element += '</div></div>';
@@ -316,6 +318,24 @@ $(document).ready(function(){
     return element;
   }
 
+  function create_filter_buttons(){
+    var array = [{'name': 'VIDEO', 'icon': 'video'}
+                , {'name': 'CHAT', 'icon': 'comment'}
+                , {'name': 'TAG', 'icon': 'tag'}
+                ];
+    var i=0;
+    var element = '';
+    while (i<array.length){
+      element += '<div id="'+array[i].name.toLowerCase()+'" class="control_button filters">';
+      element += '<i class="'+array[i].icon+' icon"></i> ';
+      element += array[i].name;
+      element += '</div>';
+      i++;
+    }
+
+    return element;
+  }
+
   function get_unique(value, index, self){
     return self.indexOf(value)===index;
   }
@@ -333,7 +353,7 @@ $(document).ready(function(){
 
   $(document).on('click', '.navigation.link', function(e){
     $('#room_title').html('');
-    $('#input_message').html('');
+    $('#bottom_control').html('');
     $('#center_content').attr('class','');
     $('.navigation.link').attr('class', 'navigation link');
     $(this).attr('class', 'navigation link chosen');
@@ -352,9 +372,11 @@ $(document).ready(function(){
 
   $(document).on('click', '#distinct_messages', function(e){
     if ($(this).attr('class').indexOf('active')>-1){
-      goto_room(0, $('#room_title').html());
+      goto_room(0, $('#room_title_div').html());
     } else {
       fill_object('#center_content', create_tiles());
+      fill_object('#bottom_control_main', create_filter_buttons());
+      $('#chat').click();
     }
     $(this).toggleClass('active');
   })
@@ -367,8 +389,13 @@ $(document).ready(function(){
     goto_room(1);
   });
 
-  $(document).on('keyup', '#input_message>.input_field', function(e){
+  $(document).on('keyup', '#bottom_control_main>.input_field', function(e){
     auto_height(this);
   })
-  //say hellow
+
+  $(document).on('click', '.control_button.filters', function(e){
+    $('.control_button.filters').attr('class', 'control_button filters');
+    $(this).toggleClass('chosen');
+  })
+
 })
