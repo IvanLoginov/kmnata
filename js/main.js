@@ -75,10 +75,11 @@ $(document).ready(function(){
     element += '<td><div class="group_title">VIDEO</div></td>';
     element += '</tr>';
     var i=0;
-    var q=2;
-    while (i<q){
+    var color;
+    while (i<2){
+      color = 'color:'+get_random_rgba();
       element += '<tr class="right_content_tr">';
-      element += '<td><div class="ninja link"><i class="circle icon"></i> Ninja '+(i+1)+'</div></td>';
+      element += '<td><div class="ninja link"><i class="bug icon" style="'+color+';font-size:20px"></i> Ninja '+(i+1)+'</div></td>';
       element += '</tr>';
       i++;
     }
@@ -86,10 +87,10 @@ $(document).ready(function(){
     element += '<td><div class="group_title">CHAT</div></td>';
     element += '</tr>';
     i=0;
-    q=7;
-    while (i<q){
+    while (i<messages.length){
+      color = 'color:'+get_random_rgba();
       element += '<tr class="right_content_tr">';
-      element += '<td><div class="ninja link"><i class="circle icon"></i> Ninja '+(i+1)+'</div></td>';
+      element += '<td><div class="ninja link"><i class="bug icon" style="'+color+';font-size:20px"></i>'+messages[i].user+'</div></td>';
       element += '</tr>';
       i++;
     }
@@ -227,13 +228,21 @@ $(document).ready(function(){
                   ,{'user':'Intellegion', 'message':'hmm nice memes'}
                   ,{'user':'mefsh', 'message':'Not really a meme, but still funny.<br><br><img src="../img/kfc_dog.jpg"></img>'}
                 ]
+
+  function get_random_color(){
+    return Math.round(Math.random()*255,0);
+  }
+
+  function get_random_rgba(){
+    return 'rgba('+get_random_color()+','+get_random_color()+','+get_random_color()+', 0.8)';
+  }
+
   function get_chat(){
     var element = '';
     var color;
     var i=0;
     while (i<messages.length){
-      color = 'color:rgba('+Math.round(Math.random()*255,0);
-      color += ','+Math.round(Math.random()*255,0)+','+Math.round(Math.random()*255,0)+', 0.8)';
+      color = 'color:'+get_random_rgba();
       element += '<tr><td class="user_icon" style="'+color+'">';
       element += '<i class="bug icon"></i>';
       element += '</td>';
@@ -296,8 +305,7 @@ $(document).ready(function(){
     uniq_users = uniq_users.filter(get_unique);
     var color;
     while (i<uniq_users.length){
-      color = 'color:rgba('+Math.round(Math.random()*255,0);
-      color += ','+Math.round(Math.random()*255,0)+','+Math.round(Math.random()*255,0)+', 0.8)';
+      color = 'color:'+get_random_rgba();
       element += '<div class="message_tile">';
       element += '<div class="distinct_user_name"><i class="bug icon" style="'+color+'">';
       element += '</i> '+uniq_users[i]+'</div>';
@@ -374,7 +382,6 @@ $(document).ready(function(){
     if ($(this).attr('class').indexOf('active')>-1){
       goto_room(0, $('#room_title_div').html());
     } else {
-      fill_object('#center_content', create_tiles());
       fill_object('#bottom_control_main', create_filter_buttons());
       $('#chat').click();
     }
@@ -396,6 +403,8 @@ $(document).ready(function(){
   $(document).on('click', '.control_button.filters', function(e){
     $('.control_button.filters').attr('class', 'control_button filters');
     $(this).toggleClass('chosen');
+
+    fill_object('#center_content', create_tiles());
   })
 
 })
