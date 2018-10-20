@@ -161,11 +161,11 @@ $(document).ready(function(){
       var j, tags;
       var element = '<table id="center_content_table" class="full_width">';
       while (i<data.length){
+        var color =
         element += '<tr class="room_tr">';
         element += '<td class="room_td">';
         element += '<div class="door"';
-        element += 'style="background-color:rgba('+Math.round(Math.random()*255,0);
-        element += ','+Math.round(Math.random()*255,0)+','+Math.round(Math.random()*255,0)+', 0.8)">';
+        element += 'style="background-color:'+get_random_rgba()+'">';
         element += '<div class="door_handle"></div></div></td>';
         element += '<td class="room_td">'
         element += '<table><tr>'
@@ -293,13 +293,33 @@ $(document).ready(function(){
     fill_object('#right_content', create_right_content());
   }
 
+  function create_video_tiles(){
+    var array = ['https://www.youtube.com/embed/5AEbq6X33A8'
+                , 'https://www.youtube.com/embed/LbG5STFZ3C0'];
+    var i=0;
+    var element = '';
+    while (i<array.length){
+      color = 'color:'+get_random_rgba();
+      element += '<div class="message_tile">';
+      element += '<div class="distinct_user_name"><i class="bug icon" style="'+color+'">';
+      element += '</i> Ninja '+(i+1)+'</div>';
+      element += '<div class="distinct_messages">';
+      element += '<iframe style="width:100%;height:100%"src="'+array[i]+'"';
+      element += ' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      element += '</div></div>';
+      i++;
+    }
+
+    return element;
+  }
+
   function create_tiles(){
     var i=0;
     var j=0;
     var element = '<div class="message_tile">';
     element += '<div class="distinct_user_name">Main chat</div>';
     element += '<div class="distinct_messages">';
-    element += '<table class="full_width">'+$('#center_content_table').html()+'</table>';
+    element += '<table class="full_width">'+create_chat()+'</table>';
     element += '</div></div>';
     var uniq_users = get_values(messages, 'user');
     uniq_users = uniq_users.filter(get_unique);
@@ -403,8 +423,14 @@ $(document).ready(function(){
   $(document).on('click', '.control_button.filters', function(e){
     $('.control_button.filters').attr('class', 'control_button filters');
     $(this).toggleClass('chosen');
-
-    fill_object('#center_content', create_tiles());
+    var id = $(this).attr('id');
+    var element;
+    if (id == 'video'){
+      element = create_video_tiles();
+    } else {
+      element = create_tiles();
+    }
+    fill_object('#center_content', element);
   })
 
 })
