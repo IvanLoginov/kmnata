@@ -11,7 +11,7 @@ $(document).ready(function(){
 
   function create_top_content(){
     var element = '<table id="top_table" class="full_width">';
-    element += '<td class="content_side_td">';
+    element += '<td class="left_content_td">';
     element += '<table><td style="vertical-align:bottom">'
     element += '<div id="portal_logo"><div class="door_handle"></div></div>';
     element += '</td>';
@@ -27,8 +27,8 @@ $(document).ready(function(){
     element += ' class="ui inverted blue button">Create</button>';
     element += '</td></table>';
     element += '</td>';
-    element += '<td class="content_side_td" style="padding-left:0px">';
-    element += '<div class="ui inverted right icon input" style="margin-top:10px;">';
+    element += '<td class="right_content_td active">';
+    element += '<div class="ui inverted right icon input" style="margin-top:10px;width:90%">';
     element += '<input id="top_search" type="text" placeholder="Search...">';
     element += '<i class="search icon"></i>';
     element += '</div>';
@@ -39,9 +39,11 @@ $(document).ready(function(){
 
   function create_main_content(){
     var element = '<table id="main_table" class="full_width">';
-    element += '<td class="content_side_td" style="padding-right:0px"><div id="left_content"></div></td>';
-    element += '<td style="vertical-align:top"><div id="center_content"></div><div id="bottom_control"></div></td>';
-    element += '<td class="content_side_td" style="padding:0px 0px 0px 5px"><div id="right_content"></div></td>';
+    element += '<td class="left_content_td" style="padding-right:0px"><div id="left_content"></div></td>';
+    element += '<td style="vertical-align:top"><div id="center_content">';
+    element += '</div><div id="center_bottom" class="bottom_control"></div></td>';
+    element += '<td class="right_content_td"><div id="tabs"></div><div id="right_content"></div>';
+    element += '<div id="right_bottom" class="bottom_control"></div></td>';
     element += '</table>';
 
     return element;
@@ -61,39 +63,6 @@ $(document).ready(function(){
     element += '<tr class="left_content_tr">';
     element += '<td><div id="explore" class="navigation link"><i class="building icon"></i> explore</div></td>';
     element += '</tr>';
-    element += '<tr class="left_content_tr">';
-    element += '<td><div id="responses" class="navigation link"><i class="envelope icon"></i> responses</div></td>';
-    element += '</tr>';
-    element += '</table>';
-
-    return element;
-  }
-
-  function create_right_content(){
-    var element = '<table id="left_content_table" class="full_width">';
-    element += '<tr class="right_content_tr">';
-    element += '<td><div class="group_title">VIDEO</div></td>';
-    element += '</tr>';
-    var i=0;
-    var color;
-    while (i<2){
-      color = 'color:'+get_random_rgba();
-      element += '<tr class="right_content_tr">';
-      element += '<td><div class="ninja link"><i class="bug icon" style="'+color+';font-size:20px"></i> Ninja '+(i+1)+'</div></td>';
-      element += '</tr>';
-      i++;
-    }
-    element += '<tr class="right_content_tr">';
-    element += '<td><div class="group_title">CHAT</div></td>';
-    element += '</tr>';
-    i=0;
-    while (i<messages.length){
-      color = 'color:'+get_random_rgba();
-      element += '<tr class="right_content_tr">';
-      element += '<td><div class="ninja link"><i class="bug icon" style="'+color+';font-size:20px"></i>'+messages[i].user+'</div></td>';
-      element += '</tr>';
-      i++;
-    }
     element += '</table>';
 
     return element;
@@ -159,7 +128,7 @@ $(document).ready(function(){
 
       var i=0;
       var j, tags;
-      var element = '<table id="center_content_table" class="full_width">';
+      var element = '<table class="full_width">';
       while (i<data.length){
         var color =
         element += '<tr class="room_tr">';
@@ -181,18 +150,9 @@ $(document).ready(function(){
         element += '</td></tr></table>';
         element += '</td>';
         element += '<td class="room_td">';
-        element += '<table class="room_overview">';
-        element += '<tr>';
-        element += '<td>'+data[i].ninjas+'</td>';
-        element += '<td>'+data[i].static+'</td>';
-        element += '<td>'+data[i].video+'</td>';
+        element += '<div class="brief_view">';
+        element += 'Brief view</div>';
         element += '</tr>';
-        element += '<tr>';
-        element += '<td>ninjas</td>';
-        element += '<td>static</td>';
-        element += '<td>video</td>';
-        element += '</table>';
-        element += '</td></tr>';
         i++;
       }
       element += '</table>';
@@ -201,7 +161,7 @@ $(document).ready(function(){
   }
 
   function create_explore_content(){
-    var element = '<table id="center_content_table" class="full_width">';
+    var element = '<table class="full_width">';
     element += '<tr><td>';
     element += '<div style="font-size:18px; color:rgba(255,255,255,0.5)">Check it later</div>';
     element += '</td></tr>';
@@ -210,15 +170,19 @@ $(document).ready(function(){
     return element;
   }
 
-
   function auto_height(el){
     var delta = $(el).outerHeight();
     el.style.height = '1px';
     el.style.height = (el.scrollHeight)+"px";
     delta = $(el).outerHeight() - delta;
     if (delta){
-      delta = $('#center_content').css('height').replace('px','') - delta;
-      $('#center_content').css('height', delta);
+      if ($('#center_bottom').html().length){
+        delta = $('#center_content').css('height').replace('px','') - delta;
+        $('#center_content').css('height', delta);
+      } else {
+        delta = $('#right_content').css('height').replace('px','') - delta;
+        $('#right_content').css('height', delta);
+      }
     }
   }
   var messages = [{'user':'Anti-Dead Cat', 'message':'<img src="../img/smelly_pussy.png"></img>'}
@@ -265,7 +229,6 @@ $(document).ready(function(){
   function goto_room(create, room_name){
     create = (create || 0);
     room_name = (room_name || 'Wassssssuuup!!!');
-    $('.navigation.link').attr('class', 'navigation link');
     var element;
     if (create){
       element = '<input class="input_field" placeholder="What about?">';
@@ -276,21 +239,21 @@ $(document).ready(function(){
       element += '</div>';
     }
     $('#room_title').html(element);
-    element = '<table id="center_content_table" class="full_width">';
+    element = '<table class="full_width">';
     if (!create){
       element += create_chat();
     }
     element += '</table>';
     $('#center_content').html(element).attr('class','chat');
-
-    element = '<div id="bottom_control_main"><div id="upload_media" class="control_button">';
+    $('#right_content').attr('class','chat');
+    element = '<div id="upload_media" class="control_button">';
     element += '<i class="paperclip icon"></i></div>';
     element += '<textarea class="input_field" placeholder="Message">';
-    element += '</textarea></div>';
-    element += '<div id="distinct_messages" class="control_button">';
-    element += '<i style="margin-top:7px" class="magic icon"></i></div>';
-    $('#bottom_control').html(element);
-    fill_object('#right_content', create_right_content());
+    element += '</textarea>';
+    $('#center_bottom').html(element);
+    fill_object('#right_content', create_video_tiles());
+    fill_object('#tabs', create_filter_tabs());
+    $('#desks').click();
   }
 
   function create_video_tiles(){
@@ -300,10 +263,10 @@ $(document).ready(function(){
     var element = '';
     while (i<array.length){
       color = 'color:'+get_random_rgba();
-      element += '<div class="message_tile">';
-      element += '<div class="distinct_user_name"><i class="bug icon" style="'+color+'">';
+      element += '<div class="tile">';
+      element += '<div class="tile_user_name"><i class="bug icon" style="'+color+'">';
       element += '</i> Ninja '+(i+1)+'</div>';
-      element += '<div class="distinct_messages">';
+      element += '<div class="tile_content">';
       element += '<iframe style="width:100%;height:100%"src="'+array[i]+'"';
       element += ' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
       element += '</div></div>';
@@ -316,9 +279,9 @@ $(document).ready(function(){
   function create_tiles(){
     var i=0;
     var j=0;
-    var element = '<div class="message_tile">';
-    element += '<div class="distinct_user_name">Main chat</div>';
-    element += '<div class="distinct_messages">';
+    var element = '<div class="tile">';
+    element += '<div class="tile_user_name">Main chat</div>';
+    element += '<div class="tile_content">';
     element += '<table class="full_width">'+create_chat()+'</table>';
     element += '</div></div>';
     var uniq_users = get_values(messages, 'user');
@@ -326,10 +289,10 @@ $(document).ready(function(){
     var color;
     while (i<uniq_users.length){
       color = 'color:'+get_random_rgba();
-      element += '<div class="message_tile">';
-      element += '<div class="distinct_user_name"><i class="bug icon" style="'+color+'">';
+      element += '<div class="tile">';
+      element += '<div class="tile_user_name"><i class="bug icon" style="'+color+'">';
       element += '</i> '+uniq_users[i]+'</div>';
-      element += '<div class="distinct_messages"><table class="full_width">';
+      element += '<div class="tile_content"><table class="full_width">';
       j=0;
       while (j<messages.length){
         if (messages[j].user==uniq_users[i]){
@@ -346,17 +309,14 @@ $(document).ready(function(){
     return element;
   }
 
-  function create_filter_buttons(){
-    var array = [{'name': 'VIDEO', 'icon': 'video'}
-                , {'name': 'CHAT', 'icon': 'comment'}
-                , {'name': 'TAG', 'icon': 'tag'}
-                ];
+  function create_filter_tabs(){
+    var array = ['DESKS', 'CHAT'];
     var i=0;
     var element = '';
     while (i<array.length){
-      element += '<div id="'+array[i].name.toLowerCase()+'" class="control_button filters">';
-      element += '<i class="'+array[i].icon+' icon"></i> ';
-      element += array[i].name;
+      element += '<div id="'+array[i].toLowerCase()+'" title="Show here '+array[i].name+'"';
+      element += ' class="tabs">';
+      element += array[i];
       element += '</div>';
       i++;
     }
@@ -379,9 +339,15 @@ $(document).ready(function(){
     return array;
   }
 
+  $(document).on('click', '.tabs', function(e){
+    $('.tabs').attr('class', 'tabs');
+    $(this).toggleClass('chosen');
+  })
+
   $(document).on('click', '.navigation.link', function(e){
     $('#room_title').html('');
-    $('#bottom_control').html('');
+    $('.bottom_control').html('');
+    $('#tabs').html('');
     $('#center_content').attr('class','');
     $('.navigation.link').attr('class', 'navigation link');
     $(this).attr('class', 'navigation link chosen');
@@ -398,39 +364,65 @@ $(document).ready(function(){
     fill_object('#right_content', '');
   });
 
-  $(document).on('click', '#distinct_messages', function(e){
-    if ($(this).attr('class').indexOf('active')>-1){
-      goto_room(0, $('#room_title_div').html());
-    } else {
-      fill_object('#bottom_control_main', create_filter_buttons());
-      $('#chat').click();
-    }
-    $(this).toggleClass('active');
-  })
-
   $(document).on('click', '.room_name', function(e){
     goto_room(0, $(this).html());
+
   });
+
+  $(document).on('click', '.brief_view', function(e){
+    fill_object('#right_content', '<table class="full_width chat">'+create_chat()+'</table>');
+  })
 
   $(document).on('click', '#create', function(e){
     goto_room(1);
   });
 
-  $(document).on('keyup', '#bottom_control_main>.input_field', function(e){
+  $(document).on('keyup', '.bottom_control>.input_field', function(e){
     auto_height(this);
   })
 
-  $(document).on('click', '.control_button.filters', function(e){
-    $('.control_button.filters').attr('class', 'control_button filters');
+  $(document).on('click', '.tabs', function(e){
+    $('.tabs').attr('class', 'tabs');
+    $('.chat').attr('style','');
     $(this).toggleClass('chosen');
     var id = $(this).attr('id');
-    var element;
-    if (id == 'video'){
-      element = create_video_tiles();
+    var center;
+    var right;
+    var c_bot, r_bot;
+    if (id == 'desks'){
+      center = '<table class="full_width">';
+      center += create_chat();
+      center += '</table>';
+      right = create_video_tiles();
+      r_bot = '';
+      c_bot = '<div id="upload_media" class="control_button">';
+      c_bot += '<i class="paperclip icon"></i></div>';
+      c_bot += '<textarea class="input_field" placeholder="Message">';
+      c_bot += '</textarea>';
     } else {
-      element = create_tiles();
+      center = create_video_tiles();
+      right = '<table class="full_width">';
+      right += create_chat();
+      right += '</table>';
+      r_bot = '<div id="upload_media" class="control_button">';
+      r_bot += '<i class="paperclip icon"></i></div>';
+      r_bot += '<textarea class="input_field" placeholder="Message">';
+      r_bot += '</textarea>';
+      c_bot = '';
+
     }
-    fill_object('#center_content', element);
+    fill_object('#center_content', center);
+    fill_object('#right_content', right);
+    fill_object('#center_bottom', c_bot);
+    fill_object('#right_bottom', r_bot)
+  })
+
+  $(document).on('click', '.tile_content', function(e){
+    if ($('.tabs.chosen').html()=='DESKS'){
+      $('#chat').click();
+    }
+
+    $('#center_content').html($(this).html());
   })
 
 })
