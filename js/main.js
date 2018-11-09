@@ -1,4 +1,11 @@
 $(document).ready(function(){
+  var messages = [{'user':'Anti-Dead Cat', 'message':'<img src="../img/smelly_pussy.png"></img>'}
+                  ,{'user':'Happy', 'message':'that refers to u my dude'}
+                  ,{'user':'Anti-Dead Cat', 'message':'<img src="../img/build_shelf.png"></img>'}
+                  ,{'user':'Fix a Fix', 'message':'Why 3/4 of your memes are memes that existed 10 years ago and the other quarter are good memes? How do you even find this collection thats good only in a small part? Just a question im curious and a bit surprised to find so many 2008 memes'}
+                  ,{'user':'Intellegion', 'message':'hmm nice memes'}
+                  ,{'user':'mefsh', 'message':'Not really a meme, but still funny.<br><br><img src="../img/kfc_dog.jpg"></img>'}
+                ]
 
   fill_object('#top_content', create_top_content());
   fill_object('#main_content', create_main_content());
@@ -8,18 +15,51 @@ $(document).ready(function(){
     $(which).html(filling);
   }
 
+  function create_hashtag_tabs(){
+      var hashtags = [
+                      {
+                        'name':'education'
+                      },
+                      {
+                        'name':'gaming'
+                      },
+                      {
+                        'name':'chilling'
+                      },
+                      {
+                        'name':'DIY'
+                      },
+                      {
+                        'name':'howto'
+                      }
+                    ]
+      var element = '';
+      var i = 0;
+      while (i<hashtags.length){
+        element += '<div class="tag">';
+        element += '<div class="tag_name" style="background-color:'+get_random_rgba().replace('0.8','0.3')+'">';
+        element += '#'+hashtags[i].name+'</div>';
+        element += '</div>';
+        i++;
+      }
+
+      return element;
+  }
+
   function create_top_content(){
     var element = '<table id="top_table" class="full_width">';
-    element += '<td>';
-    element += '<div class="ui inverted right icon input" style="margin-left:15px;">';
+    element += '<td class="top_td">';
+    element += '<div id="portal_logo"><img src="../img/logo.png"></div>';
+    element += '<div id="tags">';
+    element += create_hashtag_tabs();
+    element += '</div>';
+    element += '</td>';
+    element += '<td class="top_td">';
+    element += '<div class="ui inverted right icon input" style="margin-left:6px;">';
     element += '<input id="top_search" type="text" placeholder="Search...">';
     element += '<i class="search icon"></i>';
     element += '</div>';
-    element += '</td>';
-    element += '<td>';
     element += '<button id="create" class="ui inverted blue button">Create</button>';
-    element += '</td>';
-    element += '<td class="right_content_td active">';
     element += '</td>';
     element += '</table>';
     return element;
@@ -27,11 +67,15 @@ $(document).ready(function(){
 
   function create_main_content(){
     var element = '<table id="main_table" class="full_width">';
-    element += '<td class="left_content_td"><div id="left_content"></div></td>';
-    element += '<td style="vertical-align:top"><div id="center_content">';
-    element += '</div><div id="center_bottom" class="bottom_control"></div></td>';
-    element += '<td class="right_content_td"><div id="right_content"></div>';
-    element += '<div id="right_bottom" class="bottom_control"></div></td>';
+    element += '<td>';
+    element += '<div id="center_content"></div>';
+    element += '<div id="center_name" class="bottom_control"></div>';
+    element += '<div id="center_bottom" class="bottom_control"></div>';
+    element += '</td>';
+    element += '<td style="width:1%">'
+    element += '<div id="right_content"></div>';
+    element += '<div id="right_bottom" class="bottom_control"></div>';
+    element += '</td>';
     element += '</table>';
 
     return element;
@@ -43,22 +87,10 @@ $(document).ready(function(){
     el.style.height = (el.scrollHeight)+"px";
     delta = $(el).outerHeight() - delta;
     if (delta){
-      if ($('#center_bottom').html().length){
-        delta = $('#center_content').css('height').replace('px','') - delta;
-        $('#center_content').css('height', delta);
-      } else {
-        delta = $('#right_content').css('height').replace('px','') - delta;
-        $('#right_content').css('height', delta);
-      }
+      delta = $('#right_content').css('height').replace('px','') - delta;
+      $('#right_content').css('height', delta);
     }
   }
-  var messages = [{'user':'Anti-Dead Cat', 'message':'<img src="../img/smelly_pussy.png"></img>'}
-                  ,{'user':'Happy', 'message':'that refers to u my dude'}
-                  ,{'user':'Anti-Dead Cat', 'message':'<img src="../img/build_shelf.png"></img>'}
-                  ,{'user':'Fix a Fix', 'message':'Why 3/4 of your memes are memes that existed 10 years ago and the other quarter are good memes? How do you even find this collection thats good only in a small part? Just a question im curious and a bit surprised to find so many 2008 memes'}
-                  ,{'user':'Intellegion', 'message':'hmm nice memes'}
-                  ,{'user':'mefsh', 'message':'Not really a meme, but still funny.<br><br><img src="../img/kfc_dog.jpg"></img>'}
-                ]
 
   function get_random_color(){
     return Math.round(Math.random()*255,0);
@@ -97,22 +129,12 @@ $(document).ready(function(){
     create = (create || 0);
     room_name = (room_name || 'Wassssssuuup!!!');
     var element;
-    if (create){
-      element = '<input class="input_field" placeholder="What about?">';
-      element += '</input>';
-    } else {
-      element = '<div id="room_title_div">';
-      element += room_name;
-      element += '</div>';
-    }
-    $('#room_title').html(element);
     element = '<table class="full_width">';
     if (!create){
       element += create_chat();
     }
     element += '</table>';
     $('#right_content').html(element).attr('class','chat');
-    $('#center_content').attr('class','chat');
     element = '<div id="upload_media" class="control_button">';
     element += '<i class="paperclip icon"></i></div>';
     element += '<textarea class="input_field" placeholder="Message">';
@@ -142,7 +164,6 @@ $(document).ready(function(){
       q_first_row++;
       i++;
     }
-    console.log(q_first_row + ' ' + q_last_row);
     var margin = (q_first_row - q_last_row)*$(x[0]).outerWidth(true)+10;
     $(x[x.length-1]).css('margin-right', margin);
   }
@@ -183,10 +204,10 @@ $(document).ready(function(){
       element += '<div class="tile">';
       element += '<div class="tile_content">';
       if (array[i].type=='video'){
-        element += '<div class="topic_name"><iframe style="width:100%;height:100%"src="'+array[i].src+'"';
+        element += '<div class="tile_window"><iframe style="width:100%;height:100%"src="'+array[i].src+'"';
         element += ' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>';
       } else {
-        element += '<div class="topic_name" style="background-color:'+get_random_rgba()+'">';
+        element += '<div class="tile_window" style="background-color:'+get_random_rgba().replace('0.8','0.5')+'">';
         element += array[i].src+'</div>';
       }
       dots = (array[i].name.length>27 ? '...' : '');
@@ -225,31 +246,6 @@ $(document).ready(function(){
     $(this).toggleClass('chosen');
   })
 
-  $(document).on('click', '.navigation.link', function(e){
-    $('#room_title').html('');
-    $('.bottom_control').html('');
-    $('#tabs').html('');
-    $('#center_content').attr('class','');
-    $('.navigation.link').attr('class', 'navigation link');
-    $(this).attr('class', 'navigation link chosen');
-
-    var id = $(this).attr('id');
-    var element;
-    if (id=='desired'){
-      element = create_desired_content();
-    }
-    if (id=='explore' || id=='responses'){
-      element = create_explore_content();
-    }
-    fill_object('#center_content', element);
-    fill_object('#right_content', '');
-  });
-
-  $(document).on('click', '.room_name', function(e){
-    goto_room(0, $(this).html());
-
-  });
-
   $(document).on('click', '#create', function(e){
     goto_room(1);
   });
@@ -258,32 +254,11 @@ $(document).ready(function(){
     auto_height(this);
   })
 
-  $(document).on('click', '.tabs', function(e){
-    $('.tabs').attr('class', 'tabs');
-    $('.chat').attr('style','');
-    $(this).toggleClass('chosen');
-    var id = $(this).attr('id');
-    var center;
-    var right;
-    var c_bot, r_bot;
-    center = create_tiles();
-    right = '<table class="full_width">';
-    right += create_chat();
-    right += '</table>';
-    r_bot = '<div id="upload_media" class="control_button">';
-    r_bot += '<i class="paperclip icon"></i></div>';
-    r_bot += '<textarea class="input_field" placeholder="Message">';
-    r_bot += '</textarea>';
-    c_bot = '';
-
-    fill_object('#center_content', center);
-    fill_object('#right_content', right);
-    fill_object('#center_bottom', c_bot);
-    fill_object('#right_bottom', r_bot)
-  })
-
   $(document).on('click', '.tile', function(e){
-    goto_room(0, $(this).find('.tile_name').attr('title'));
+    $('#center_content').toggleClass('room');
+    $('#center_name').html($(this).find('.tile_name').attr('title'));
+    $('#center_content').html($(this).find('.tile_window').html());
+    goto_room(0);
   })
 
 })
