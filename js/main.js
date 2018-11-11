@@ -261,24 +261,29 @@ $(document).ready(function(){
     var topics = [
                     {
                       'name':'live'
+                      ,'class': 'chosen'
                     },
                     {
                       'name':'red shirt guy 2010'
+                      ,'class': ''
                     },
                     {
                       'name':'Arrays - lesson 16'
+                      ,'class': ''
                     },
                     {
                       'name':'How to deploy on Heroku'
+                      ,'class': ''
                     },
                     {
-                      'name':'Making arduino baking'
+                      'name':'Ocarina of time'
+                      ,'class': ''
                     }
                   ]
     var i=0;
     var element = '';
     while (i<topics.length){
-      element += '<div class="topic">'
+      element += '<div class="topic '+topics[i].class+'">'
       element += '<table class="full_width topic_table">';
       element += '<td style="vertical-align:middle">';
       if (i%2==0){

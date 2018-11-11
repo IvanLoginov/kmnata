@@ -157,6 +157,15 @@ table {
   max-width:150px;
   padding:5px;
   background-color: rgba(114,118,125,.3);
+  opacity:0.5;
+}
+
+.topic:hover{
+  opacity:1;
+}
+
+.topic.chosen{
+  opacity:1;
 }
 
 .topic_table{
