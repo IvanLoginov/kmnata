@@ -5,24 +5,13 @@ body{
   margin:0px;
 }
 
-.brief_view{
-  width:61px;
-  padding: 3px 9px;
-  cursor:pointer;
-  color:rgba(255,255,255,0.0);
-  margin-right:15px;
-  border: 1px solid rgba(255,255,255,0.0);
-  border-radius: 3px;
-  float:right;
-}
-
 .bottom_control{
   margin-top:5px;
   height:45px;
 }
 
 .bottom_control>.input_field{
-  margin-left: 41px;
+  margin-left: 1px;
   line-height: 100%
 }
 
@@ -33,6 +22,10 @@ body{
 
 #center_content.room{
   height: 72.5vh;
+}
+
+#center_content_info{
+  margin-left:10px;
 }
 
 .control_button{
@@ -83,6 +76,12 @@ body{
   vertical-align: top;
 }
 
+.n_new_messages{
+  padding:0px 5px;
+  color: rgb(84, 200, 255);
+  font-weight: bold;
+}
+
 #right_content .tile{
   margin: 10px 25px;
 }
@@ -102,19 +101,20 @@ body{
   overflow:scroll;
   padding-bottom:10px;
   width:0px;
+  padding-left:5px;
 }
 
 #right_content.chat{
   background-color: rgb(54, 57, 63);
   height:78.6vh;
-  width:384px;
+  width:385px;
 }
 
 table {
   border-collapse: collapse;
 }
 
-.tag{
+.tag, .topic{
   display:inline-block;
   overflow: hidden;
   border-radius: 3px;
@@ -152,6 +152,26 @@ table {
   width:190px;
 }
 
+.topic{
+  min-width: 50px;
+  max-width:150px;
+  padding:5px;
+  background-color: rgba(114,118,125,.3);
+}
+
+.topic_table{
+  height:100%;
+}
+
+.topic_table .topic_name{
+  font-size:14px;
+}
+
+.topic_name{
+  color:white;
+  font-size:16px;
+}
+
 .tile{
   display:inline-block;
   margin:30px 15px;
@@ -164,17 +184,6 @@ table {
   width:100%;
   display:inline-block;
   text-align: left;
-}
-
-.tile_name{
-  color:white;
-  font-size:16px;
-}
-
-.tile_user_name{
-  color:rgba(255, 255, 255, 0.7);
-  padding-bottom:10px;
-  font-size:12px;
 }
 
 .tile_window{
@@ -222,6 +231,12 @@ table {
   display:inline-flex;
 }
 
+.tile .user_name{
+  color:rgba(255, 255, 255, 0.7);
+  padding-bottom:10px;
+  font-size:12px;
+}
+
 .user_name{
   color:white;
 }
@@ -231,11 +246,14 @@ table {
   color:rgba(255,255,255,0.7)
 }
 
+#user_icon{
+  font-size:33px;
+}
+
 .user_icon{
   font-size:22px;
 }
 
 #upload_media{
   padding: 6.5px 0px;
-  position:absolute;
 }

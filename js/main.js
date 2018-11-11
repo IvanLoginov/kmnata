@@ -69,7 +69,9 @@ $(document).ready(function(){
     var element = '<table id="main_table" class="full_width">';
     element += '<td>';
     element += '<div id="center_content"></div>';
-    element += '<div id="center_name" class="bottom_control"></div>';
+    element += '<div id="center_content_info" class="bottom_control">';
+    element += '<table><td id="user_icon"></td><td id="topic_info"></td></table>';
+    element += '</div>';
     element += '<div id="center_bottom" class="bottom_control"></div>';
     element += '</td>';
     element += '<td style="width:1%">'
@@ -81,10 +83,10 @@ $(document).ready(function(){
     return element;
   }
 
-  function auto_height(el){
+  function adjust_height(el){
     var delta = $(el).outerHeight();
     el.style.height = '1px';
-    el.style.height = (el.scrollHeight)+"px";
+    el.style.height = (el.scrollHeight-2)+"px";
     delta = $(el).outerHeight() - delta;
     if (delta){
       delta = $('#right_content').css('height').replace('px','') - delta;
@@ -141,8 +143,6 @@ $(document).ready(function(){
     element += '</textarea>';
     $('#right_bottom').html(element);
     fill_object('#center_bottom', create_topics());
-    $('#desks').click();
-    adjust_last_tile();
   }
 
   function adjust_last_tile(){
@@ -153,14 +153,14 @@ $(document).ready(function(){
     var q_last_row = 0;
     var q_first_row = 0;
     i--;
-    while ($(x[i]).offset().top==top && i>-1){
+    while (i>-1 && $(x[i]).offset().top==top){
       q_last_row++;
       i--;
     }
     i = 0;
     top = $(x[i]).offset().top;
     i++;
-    while ($(x[i]).offset().top==top && i<x.length){
+    while (i<x.length && $(x[i]).offset().top==top){
       q_first_row++;
       i++;
     }
@@ -211,8 +211,8 @@ $(document).ready(function(){
         element += array[i].src+'</div>';
       }
       dots = (array[i].name.length>27 ? '...' : '');
-      element += '<div class="tile_name" title="'+array[i].name+'">'+array[i].name.slice(0,27)+dots+'</div>';
-      element += '<div class="tile_user_name">';
+      element += '<div class="topic_name" title="'+array[i].name+'">'+array[i].name.slice(0,27)+dots+'</div>';
+      element += '<div class="user_name">';
       element += 'Ninja '+(i+1)+'</div>';
       element += '</div>';
       element += '</div>';
@@ -241,6 +241,63 @@ $(document).ready(function(){
     return array;
   }
 
+  function get_user_icon(){
+    var color = 'color:'+get_random_rgba();
+    var element = '<div style="'+color+'"><i class="bug icon"></i></div>';
+
+    return element;
+  }
+
+  function get_topic_info(object){
+    var topic_name = object.find('.topic_name').attr('title');
+    var user_name = object.find('.user_name').html();
+    var element = '<div class="topic_name">'+topic_name+'</div>';
+    element += '<div class="user_name">'+user_name+'</div>';
+
+    return element;
+  }
+
+  function create_topics(){
+    var topics = [
+                    {
+                      'name':'live'
+                    },
+                    {
+                      'name':'red shirt guy 2010'
+                    },
+                    {
+                      'name':'Arrays - lesson 16'
+                    },
+                    {
+                      'name':'How to deploy on Heroku'
+                    },
+                    {
+                      'name':'Making arduino baking'
+                    }
+                  ]
+    var i=0;
+    var element = '';
+    while (i<topics.length){
+      element += '<div class="topic">'
+      element += '<table class="full_width topic_table">';
+      element += '<td style="vertical-align:middle">';
+      if (i%2==0){
+        element += '<div class="n_new_messages">'
+        element += Math.floor(Math.random()*10,0);
+        element += '</div>';
+      }
+      element += '</td>';
+      element += '<td style="vertical-align:middle">';
+      element += '<div class="topic_name">'+topics[i].name+'</div>';
+      element += '</td>';
+      element += '</table>';
+      element +='</div>';
+      i++;
+    }
+
+    return element;
+  }
+
   $(document).on('click', '.tabs', function(e){
     $('.tabs').attr('class', 'tabs');
     $(this).toggleClass('chosen');
@@ -251,12 +308,14 @@ $(document).ready(function(){
   });
 
   $(document).on('keyup', '.bottom_control>.input_field', function(e){
-    auto_height(this);
+    adjust_height(this);
   })
 
   $(document).on('click', '.tile', function(e){
     $('#center_content').toggleClass('room');
-    $('#center_name').html($(this).find('.tile_name').attr('title'));
+    $('#user_icon').html(get_user_icon());
+    $('#topic_info').html(get_topic_info($(this)));
+    $('#center_bottom').html(create_topics());
     $('#center_content').html($(this).find('.tile_window').html());
     goto_room(0);
   })
