@@ -37,7 +37,7 @@ $(document).ready(function(){
       var i = 0;
       while (i<hashtags.length){
         element += '<div class="tag">';
-        element += '<div class="tag_name" style="background-color:'+get_random_rgba().replace('0.8','0.3')+'">';
+        element += '<div class="tag_name" style="background-color:'+get_random_rgba(0.3)+'">';
         element += '#'+hashtags[i].name+'</div>';
         element += '</div>';
         i++;
@@ -98,8 +98,9 @@ $(document).ready(function(){
     return Math.round(Math.random()*255,0);
   }
 
-  function get_random_rgba(){
-    return 'rgba('+get_random_color()+','+get_random_color()+','+get_random_color()+', 0.8)';
+  function get_random_rgba(saturation){
+    saturation = (saturation || 0.8);
+    return 'rgba('+get_random_color()+','+get_random_color()+','+get_random_color()+', '+saturation+')';
   }
 
   function create_chat(){
@@ -164,54 +165,53 @@ $(document).ready(function(){
       q_first_row++;
       i++;
     }
-    var margin = (q_first_row - q_last_row)*$(x[0]).outerWidth(true)+10;
+    var margin = (q_first_row - q_last_row)*$(x[0]).outerWidth(true)+15;
     $(x[x.length-1]).css('margin-right', margin);
   }
 
   function create_tiles(){
     var array = [
                   {
-                    'type': 'video'
-                  , 'src':'https://www.youtube.com/embed/5AEbq6X33A8'
-                  , 'name':'24/7 lofi hip hop radio - beats to chill/study/relax'
+                  'src':'https://www.youtube.com/embed/LbG5STFZ3C0'
+                  , 'name':'Samurai Champloo non-stop'
                 }
                 , {
-                    'type': 'video'
-                  , 'src':'https://www.youtube.com/embed/LbG5STFZ3C0'
-                  , 'name': 'Samurai Champloo episode 01/26'
+                  'src':'https://www.youtube.com/embed/MmkHAlhCvWg'
+                  , 'name': 'The Moment Diablo Died At Blizzcon 2018'
                 }
                 , {
-                  'type': 'chat'
-                , 'src':'How to steal honey from bees'
-                , 'name': 'How to steal honey from bees'
+                  'src':'https://www.youtube.com/embed/g190nCcC5CM'
+                , 'name': 'FIBER Festival 2017 - Intelligent Machines that Learn: What Do They Know? by Memo Akten'
                 }
                 , {
-                  'type': 'video'
-                , 'src':'https://www.youtube.com/embed/YyoKXfBQgXw'
-                , 'name': 'Tron(2010) Disc Wars (action only)'
+                  'src':'https://www.youtube.com/embed/OxGorVTMDIU'
+                , 'name': '2018 Bethesda E3 Showcase - 6/10 at 6:30pm PT'
                 }
                 , {
-                  'type': 'chat'
-                , 'src':'Making online presentation'
-                , 'name': 'Making online presentation'
+                  'src':'https://www.youtube.com/embed/jtyk_2_f3d0'
+                , 'name': 'Lesson#2 AWS CodeStar | Deploy Java Spring webapp on AWS'
+                }
+                , {
+                  'src':'https://www.youtube.com/embed/7eoDwvl0QGk'
+                , 'name': 'Brexit explained: what happens when the UK leaves the EU?'
+                }
+                , {
+                  'src':'https://www.youtube.com/embed/yyPODhoDgKc'
+                , 'name': '2018 Google Pixel 3 event -- CNET live coverage'
                 }
               ];
     var i=0;
     var element = '';
-    var dots = '';
+    var bg_color = '';
     while (i<array.length){
-      color = 'color:'+get_random_rgba();
-      element += '<div class="tile">';
+      bg_color = 'background-color:'+get_random_rgba(0.3);
+      element += '<div class="tile" style="'+bg_color+'">';
       element += '<div class="tile_content">';
-      if (array[i].type=='video'){
-        element += '<div class="tile_window"><iframe style="width:100%;height:100%"src="'+array[i].src+'"';
-        element += ' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>';
-      } else {
-        element += '<div class="tile_window" style="background-color:'+get_random_rgba().replace('0.8','0.5')+'">';
-        element += array[i].src+'</div>';
-      }
-      dots = (array[i].name.length>27 ? '...' : '');
-      element += '<div class="topic_name" title="'+array[i].name+'">'+array[i].name.slice(0,27)+dots+'</div>';
+      element += '<div class="tile_window">';
+      element += '<iframe src="'+array[i].src+'"';
+      element += ' frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>';
+      element += '</div>';
+      element += '<div class="topic_name">'+array[i].name+'</div>';
       element += '<div class="user_name">';
       element += 'Ninja '+(i+1)+'</div>';
       element += '</div>';
@@ -249,7 +249,7 @@ $(document).ready(function(){
   }
 
   function get_topic_info(object){
-    var topic_name = object.find('.topic_name').attr('title');
+    var topic_name = object.find('.topic_name').html();
     var user_name = object.find('.user_name').html();
     var element = '<div class="topic_name">'+topic_name+'</div>';
     element += '<div class="user_name">'+user_name+'</div>';
@@ -283,7 +283,7 @@ $(document).ready(function(){
     var i=0;
     var element = '';
     while (i<topics.length){
-      element += '<div class="topic '+topics[i].class+'">'
+      element += '<div class="topic '+topics[i].class +'">'
       element += '<table class="full_width topic_table">';
       element += '<td style="vertical-align:middle">';
       if (i%2==0){
