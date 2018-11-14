@@ -137,7 +137,7 @@ $(document).ready(function(){
       element += create_chat();
     }
     element += '</table>';
-    $('#right_content').html(element).attr('class','chat');
+    $('#right_content').html(element);
     element = '<div id="upload_media" class="control_button">';
     element += '<i class="paperclip icon"></i></div>';
     element += '<textarea class="input_field" placeholder="Message">';
@@ -317,7 +317,7 @@ $(document).ready(function(){
   })
 
   $(document).on('click', '.tile', function(e){
-    $('#center_content').toggleClass('room');
+    $('#center_content, #right_content, .bottom_control').toggleClass('room');
     $('#user_icon').html(get_user_icon());
     $('#topic_info').html(get_topic_info($(this)));
     $('#center_bottom').html(create_topics());
