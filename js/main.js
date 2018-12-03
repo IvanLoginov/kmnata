@@ -9,8 +9,8 @@ $(document).ready(function(){
 
   fill_object('#top_content', create_top_content());
   fill_object('#main_content', create_main_content());
-  fill_object('#center_content', create_tiles());
-  adjust_last_tile();
+  create_tiles();
+  //adjust_last_tile();
   function fill_object(which, filling){
     $(which).html(filling);
   }
@@ -68,7 +68,7 @@ $(document).ready(function(){
   function create_main_content(){
     var element = '<table id="main_table" class="full_width">';
     element += '<td>';
-    element += '<div id="center_content"></div>';
+    element += '<div id="center_content">'+create_tile_table()+'</div>';
     element += '<div id="center_content_info" class="bottom_control">';
     element += '<table><td id="user_icon"></td><td id="topic_info"></td></table>';
     element += '</div>';
@@ -169,6 +169,19 @@ $(document).ready(function(){
     $(x[x.length-1]).css('margin-right', margin);
   }
 
+  function create_tile_table(cols){
+    cols = (cols || 4)
+    var i=0;
+    var element = '<table id="tile_table">';
+    while (i<cols){
+      element += '<td id="col_'+(i+1)+'"></td>';
+      i++;
+    }
+    element += '</table>';
+
+    return element;
+  }
+
   function create_tiles(){
     var array = [
                   {
@@ -200,11 +213,13 @@ $(document).ready(function(){
                 , 'name': '2018 Google Pixel 3 event -- CNET live coverage'
                 }
               ];
-    var i=0;
+    var i=0,
+        j=1;
     var element = '';
     var bg_color = '';
     while (i<array.length){
       bg_color = 'background-color:'+get_random_rgba(0.3);
+      element = '';
       element += '<div class="tile" style="'+bg_color+'">';
       element += '<div class="tile_content">';
       element += '<div class="tile_window">';
@@ -216,10 +231,14 @@ $(document).ready(function(){
       element += 'Ninja '+(i+1)+'</div>';
       element += '</div>';
       element += '</div>';
+      $('#col_'+j).append(element);
+      if (j<4){
+        j++;
+      } else {
+        j=1;
+      }
       i++;
     }
-
-    return element;
   }
 
   function create_topics(){
@@ -264,19 +283,19 @@ $(document).ready(function(){
                       ,'class': 'chosen'
                     },
                     {
-                      'name':'red shirt guy 2010'
+                      'name':'description'
                       ,'class': ''
                     },
                     {
-                      'name':'Arrays - lesson 16'
+                      'name':'room 303'
                       ,'class': ''
                     },
                     {
-                      'name':'How to deploy on Heroku'
+                      'name':'test QA'
                       ,'class': ''
                     },
                     {
-                      'name':'Ocarina of time'
+                      'name':'lost in time'
                       ,'class': ''
                     }
                   ]
@@ -323,6 +342,15 @@ $(document).ready(function(){
     $('#center_bottom').html(create_topics());
     $('#center_content').html($(this).find('.tile_window').html());
     goto_room(0);
+  })
+
+  $('#portal_logo').on({
+    mouseenter: function (e) {
+        $(this).find('img').attr('src','../img/logo_dark.png')
+    },
+    mouseleave: function (e) {
+        $(this).find('img').attr('src','../img/logo.png')
+    }
   })
 
 })
