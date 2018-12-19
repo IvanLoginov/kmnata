@@ -52,6 +52,7 @@ $(document).ready(function(){
   }
 
   function goto_room(where_is_chat, video, room_name, topics, chat){
+    $('#right_content').html('');
     $('.sides').attr('class','sides room');
     $('#user_icon').html(get_user_icon());
     $('#room').html(room_name);
