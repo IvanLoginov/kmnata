@@ -36,7 +36,9 @@ $(document).ready(function(){
     return element;
   }
 
-  function goto(chat, video){
+  function goto_topic(where_is_chat, video){
+    $('.sides').attr('class','sides room');
+    $('#user_icon').html(get_user_icon());
     $('#center_content').html(video);
     var element;
     element = create_chat();
@@ -46,13 +48,24 @@ $(document).ready(function(){
     element += '<textarea class="input_field" placeholder="Message">';
     element += '</textarea>';
     element += '</div>';
-    $(chat).html(element);
+    $(where_is_chat).html(element);
   }
 
-  function get_room_name(object){
-    var element = object.find('.room_name').html();
-
-    return element;
+  function goto_room(where_is_chat, video, room_name, topics, chat){
+    $('.sides').attr('class','sides room');
+    $('#user_icon').html(get_user_icon());
+    $('#room').html(room_name);
+    $('#left_content').html(topics);
+    $('#center_content').html(video);
+    var element;
+    element = chat;
+    element += '<div id="message_control">'
+    element += '<div id="upload_media" class="control_button">';
+    element += '<i class="paperclip icon"></i></div>';
+    element += '<textarea class="input_field" placeholder="Message">';
+    element += '</textarea>';
+    element += '</div>';
+    $(where_is_chat).html(element);
   }
 
   function get_topics(group, topics){
@@ -90,7 +103,7 @@ $(document).ready(function(){
                       ,'class': 'chosen'
                     },
                     {
-                      'name':'description'
+                      'name':'general'
                       ,'group': 'scribo'
                       ,'class': ''
                     },
@@ -100,12 +113,12 @@ $(document).ready(function(){
                       ,'class': ''
                     },
                     {
-                      'name':'test QA'
+                      'name':'FAQ'
                       ,'group': 'scribo'
                       ,'class': ''
                     },
                     {
-                      'name':'lost in time'
+                      'name':'shop'
                       ,'group': 'scribo'
                       ,'class': ''
                     }
@@ -125,9 +138,6 @@ $(document).ready(function(){
   }
 
   $(document).on('click', '.tile', function(e){
-    $('.sides').toggleClass('room');
-    $('#user_icon').html(get_user_icon());
-    $('#room').html(get_room_name($(this)));
     var data = $(this).find('.tile_window').html();
     $('#room').attr('video', data);
     $('#left_content').html(create_topics(data.indexOf('iframe')>-1));
@@ -138,7 +148,7 @@ $(document).ready(function(){
       video = data;
       chat = '#right_content';
     }
-    goto(chat, video);
+    goto_room(chat, video, $(this).find('.room_name').html(), create_topics(video.length>0), create_chat());
   })
 
   $(document).on('click', '.topic', function(e){
@@ -152,6 +162,24 @@ $(document).ready(function(){
     } else {
       $('#right_content').html('');
     }
-    goto(chat, video);
+    goto_topic(chat, video);
   })
+
+  $(document).on('click', '.create_button', function(e){
+    var room_name = $('#new_room_name').find('input').val();
+    if (room_name.length<1){
+      room_name = $('#new_room_name').find('input').attr('placeholder');
+    }
+    var topic = [
+                    {
+                      'name':'general'
+                      ,'group': 'scribo'
+                      ,'class': 'chosen'
+                    }
+                ]
+    var chat = '<div id="chat"><table class="full_width"></table></div>';
+    goto_room('#center_content', '', room_name, get_topics('scribo', topic), chat);
+    $('#create').click();
+  })
+
 })

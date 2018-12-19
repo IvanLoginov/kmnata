@@ -188,7 +188,8 @@ iframe{
 
 #message_control>.input_field{
   margin-left: 1px;
-  line-height: 100%
+  line-height: 100%;
+  outline: none;
 }
 
 .n_new_messages{
@@ -225,7 +226,6 @@ iframe{
 #room{
   font-size: 16px;
   color: rgba(255,255,255,0.8);
-  margin-left:1px;
   width:100%;
   text-align: center;
   font-weight: bold;
@@ -333,7 +333,7 @@ table {
   width:200px;
   padding: 10px 5px 10px 0px;
   background-color: rgba(114,118,125,.3);
-  opacity: 0.5;
+  opacity: 0.3;
   text-align: left;
   font-size:16px;
   margin:15px;

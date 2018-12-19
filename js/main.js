@@ -81,7 +81,7 @@ $(document).ready(function(){
     element += '<td class="sides">';
     element += '<div id="left_content"></div>';
     element += '</td>';
-    element += '<td>';
+    element += '<td style="padding:0px">';
     element += '<div id="center_content">'+create_tile_table()+'</div>';
     element += '</td>';
     element += '<td class="sides">';
@@ -99,8 +99,8 @@ $(document).ready(function(){
     el.style.height = (el.scrollHeight-2)+"px";
     delta = $(el).outerHeight() - delta;
     if (delta){
-      delta = $('#right_content').css('height').replace('px','') - delta;
-      $('#right_content').css('height', delta);
+      delta = $('#chat').css('height').replace('px','') - delta;
+      $('#chat').css('height', delta);
     }
   }
 
@@ -252,7 +252,7 @@ $(document).ready(function(){
     $(this).toggleClass('chosen');
   })
 
-  $(document).on('keyup', '.bottom_control>.input_field', function(e){
+  $(document).on('keyup', '#message_control>.input_field', function(e){
     adjust_height(this);
   })
 

@@ -7,7 +7,7 @@ $(document).ready(function(){
     element += '<img src="../img/L3NT.png"/></div>';
     element += '</td></tr>';
     element += '<tr><td colspan="2">';
-    element += '<div id="new_room_name"><input style="height: 35px;" type="text" placeholder="New gangsta room 2000"></div>';
+    element += '<div id="new_room_name"><input style="height: 35px;" type="text" placeholder="New molnia room '+Math.floor(Math.random()*2000)+'"></div>';
     element += '</td></tr>';
     element += '<tr><td colspan="2">';
     element += '<div class="writing">CREATE</div>';
