@@ -22,8 +22,16 @@ $(document).ready(function(){
   }
 
   $(document).on('click', '#create', function(e){
-    $('#dropdown').toggleClass('hidden');
-    $('#dropdown').html(room_settings());
+    var cls = $(this).attr('class').replace('chosen','');
+    if ($('#dropdown').attr('class').indexOf('hidden')>-1){
+      $(this).attr('class',cls + ' chosen');
+      $('#dropdown').attr('class', '')
+                    .html(room_settings());
+    } else {
+      $(this).attr('class',cls);
+      $('#dropdown').attr('class', 'hidden')
+                    .html('');
+    }
   });
 
 })

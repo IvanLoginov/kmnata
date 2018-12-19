@@ -266,9 +266,7 @@ $(document).ready(function(){
   })
 
   $(document).on('click', '.top_control', function(e){
-    var cls = $(this).attr('class');
     $('.top_control').attr('class','top_control');
-    $(this).attr('class',cls).toggleClass('chosen');
   })
 
 })
