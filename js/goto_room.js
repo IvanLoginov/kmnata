@@ -82,7 +82,7 @@ $(document).ready(function(){
     return element;
   }
 
-  function create_topics(broadcast){
+  function create_topics(video){
     var topics = [
                     {
                       'name':'live'
@@ -111,7 +111,7 @@ $(document).ready(function(){
                     }
                   ]
     var i=0;
-    var element = (broadcast ? get_topics('video', topics) : '');
+    var element = (video ? get_topics('video', topics) : '');
     element += get_topics('scribo', topics);
 
     return element;
@@ -146,7 +146,7 @@ $(document).ready(function(){
     $(this).toggleClass('chosen');
     var chat = '#center_content';
     var video = '';
-    if ($(this).attr('group').indexOf('broadcast')>-1){
+    if ($(this).attr('group').indexOf('video')>-1){
       chat = '#right_content';
       video = $('#room').attr('video');
     } else {
