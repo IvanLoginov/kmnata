@@ -82,37 +82,37 @@ $(document).ready(function(){
     return element;
   }
 
-  function create_topics(){
+  function create_topics(broadcast){
     var topics = [
                     {
                       'name':'live'
-                      ,'group': 'broadcast'
+                      ,'group': 'video'
                       ,'class': 'chosen'
                     },
                     {
                       'name':'description'
-                      ,'group': 'quick chat'
+                      ,'group': 'scribo'
                       ,'class': ''
                     },
                     {
                       'name':'room 303'
-                      ,'group': 'quick chat'
+                      ,'group': 'scribo'
                       ,'class': ''
                     },
                     {
                       'name':'test QA'
-                      ,'group': 'quick chat'
+                      ,'group': 'scribo'
                       ,'class': ''
                     },
                     {
                       'name':'lost in time'
-                      ,'group': 'quick chat'
+                      ,'group': 'scribo'
                       ,'class': ''
                     }
                   ]
     var i=0;
-    var element = get_topics('broadcast', topics);
-    element += get_topics('quick chat', topics);
+    var element = (broadcast ? get_topics('video', topics) : '');
+    element += get_topics('scribo', topics);
 
     return element;
   }
@@ -130,7 +130,7 @@ $(document).ready(function(){
     $('#room').html(get_room_name($(this)));
     var data = $(this).find('.tile_window').html();
     $('#room').attr('video', data);
-    $('#left_content').html(create_topics());
+    $('#left_content').html(create_topics(data.indexOf('iframe')>-1));
     var chat = '#center_content';
     var video = '';
     if (data.indexOf('iframe')>-1){

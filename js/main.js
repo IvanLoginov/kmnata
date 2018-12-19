@@ -56,7 +56,7 @@ $(document).ready(function(){
     element += '</div>';
     element += '</td>';
     element += '<td>';
-    element += '<div id="room"></div>';
+    element += '<div id="room">Create, Rejoice, Live,</div>';
     element += '</td>';
     element += '<td class="top sides">';
     element += '<div id="create" class="top_control"><i class="plus icon"></i></div>';
@@ -84,7 +84,8 @@ $(document).ready(function(){
     element += '<td>';
     element += '<div id="center_content">'+create_tile_table()+'</div>';
     element += '</td>';
-    element += '<td class="sides">'
+    element += '<td class="sides">';
+    element += '<div id="dropdown" class="hidden"></div>';
     element += '<div id="right_content"></div>';
     element += '</td>';
     element += '</table>';
@@ -204,7 +205,7 @@ $(document).ready(function(){
     var element = '';
     var bg_color = '';
     while (i<array.length){
-      bg_color = 'background-color:'+get_random_rgba(0.3);
+      bg_color = '';//'background-color:'+get_random_rgba(0.3);
       element = '';
       element += '<div class="tile" style="'+bg_color+'">';
       element += '<div class="tile_content">';
@@ -264,13 +265,10 @@ $(document).ready(function(){
     $('#top_search').val('');
   })
 
-  $('#portal_logo').on({
-    mouseenter: function (e) {
-        $(this).find('img').attr('src','../img/logo_dark.png')
-    },
-    mouseleave: function (e) {
-        $(this).find('img').attr('src','../img/logo.png')
-    }
+  $(document).on('click', '.top_control', function(e){
+    var cls = $(this).attr('class');
+    $('.top_control').attr('class','top_control');
+    $(this).attr('class',cls).toggleClass('chosen');
   })
 
 })
