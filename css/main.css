@@ -168,6 +168,11 @@ iframe{
   overflow:auto;
 }
 
+.main_div{
+  width: 1278px;
+  margin: auto;
+}
+
 #message_control{
   height:45px;
   margin-top:5px;

@@ -56,7 +56,7 @@ $(document).ready(function(){
     element += '</div>';
     element += '</td>';
     element += '<td>';
-    element += '<div id="room">Create, Rejoice, Live,</div>';
+    element += '<div id="room">Incorporari, Exsultate, Vive,</div>';
     element += '</td>';
     element += '<td class="top sides">';
     element += '<div id="create" class="top_control"><i class="plus icon"></i></div>';
